@@ -10,7 +10,6 @@ public class P580C {
   static BufferedReader in;
   static StringTokenizer tok;
 
-
   public static void main(String[] args) throws IOException {
     in = new BufferedReader(new InputStreamReader(System.in));
     int n = nextInt();

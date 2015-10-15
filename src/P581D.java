@@ -1,8 +1,3 @@
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.*;
 
 /**
@@ -70,26 +65,30 @@ public class P581D {
     Logo widest = logos.get(0);
     Logo b = logos.get(1);
     Logo c = logos.get(2);
-    if (b.getY() + c.getY() == widest.getY() && b.getX() == c.getX() && b.getX() + widest.getX() == widest.getY()) {
-      createResult(logos, widest.getY(), widest.getX(), b.getY(), c.getY(), b.getX());
+    int bX = b.getX();
+    int cX = c.getX();
+    int bY = b.getY();
+    int cY = c.getY();
+    if (bY + cY == widest.getY() && bX == cX && bX + widest.getX() == widest.getY()) {
+      createResult(logos, widest.getY(), widest.getX(), bY, cY);
       return true;
     }
-    if (b.getY() + c.getX() == widest.getY() && b.getX() == c.getY() && b.getX() + widest.getX() == widest.getY()) {
-      createResult(logos, widest.getY(), widest.getX(), b.getY(), c.getX(), b.getX());
+    if (bY + cX == widest.getY() && bX == cY && bX + widest.getX() == widest.getY()) {
+      createResult(logos, widest.getY(), widest.getX(), bY, cX);
       return true;
     }
-    if (b.getX() + c.getY() == widest.getY() && b.getY() == c.getX() && b.getY() + widest.getX() == widest.getY()) {
-      createResult(logos, widest.getY(), widest.getX(), b.getX(), c.getY(), b.getY());
+    if (bX + cY == widest.getY() && bY == cX && bY + widest.getX() == widest.getY()) {
+      createResult(logos, widest.getY(), widest.getX(), bX, cY);
       return true;
     }
-    if (b.getX() + c.getX() == widest.getY() && b.getY() == c.getY() && b.getY() + widest.getX() == widest.getY()) {
-      createResult(logos, widest.getY(), widest.getX(), b.getX(), c.getX(), b.getY());
+    if (bX + cX == widest.getY() && bY == cY && bY + widest.getX() == widest.getY()) {
+      createResult(logos, widest.getY(), widest.getX(), bX, cX);
       return true;
     }
     return false;
   }
 
-  private void createResult(List<Logo> logos, int y, int x, int y1, int y2, int x0) {
+  private void createResult(List<Logo> logos, int y, int x, int y1, int y2) {
     char[][] rows = new char[y][y];
     int start = 0;
     for (int i = 0; i < x; i++, start++) {
@@ -134,20 +133,6 @@ public class P581D {
   private void printRows(char[][] rows) {
     for (char[] row : rows) {
       System.out.println(new String(row));
-    }
-  }
-
-  private InputStream getInputStream() throws FileNotFoundException {
-    if ("smalex".equals(System.getenv("USER"))) {
-      Class clazz = getClass();
-      URL resource = clazz.getResource(clazz.getSimpleName() + ".in");
-      if (resource == null) {
-        System.out.println("file not exists");
-        return System.in;
-      }
-      return new FileInputStream(new File(resource.getFile()));
-    } else {
-      return System.in;
     }
   }
 }
